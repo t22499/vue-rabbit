@@ -21,6 +21,7 @@ onMounted(()=>{
         <RouterLink to="/">小兔鲜</RouterLink>  
       </h1>
       <ul class="app-header-nav">
+        <li class="home"><a>首页</a></li>
         <li class="home" v-for="itme in categoryList" :key="itme.id">
         <RouterLink to="/">{{ itme.name }}</RouterLink>
       </li>
