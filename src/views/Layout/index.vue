@@ -1,16 +1,14 @@
-<template>
-  <div>
-    我是首页
-    <!-- 二级组件出口 -->
-    <RouterView></RouterView>
-  </div>
-</template>
-
-<script>
-export default {
-  
-}
+<script setup>
+  import LayoutHerder from "./components/LayoutHerder.vue";
+  import LayoutNav from "./components/LayoutNav.vue";
+  import LayoutFooter from "./components/LayoutFooter.vue";
 </script>
+
+<template>
+  <LayoutNav></LayoutNav>
+  <LayoutHerder></LayoutHerder>
+  <LayoutFooter></LayoutFooter>
+</template>
 
 <style>
 
