@@ -2,7 +2,7 @@
 </script>
 
 <template>
-  <header></header>
+   <el-button type="primary">Primary</el-button>
 </template>
 
 <style scoped>
