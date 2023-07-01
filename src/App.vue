@@ -2,7 +2,10 @@
 </script>
 
 <template>
-   <el-button type="primary">Primary</el-button>
+   <div class="app">
+      <!-- 一级组件出口 -->
+      <RouterView></RouterView>
+   </div>
 </template>
 
 <style scoped>
