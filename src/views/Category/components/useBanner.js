@@ -11,9 +11,7 @@ const getBanner = async()=>{
   bannerList.value = res.result
 }
 
-onMounted(()=>{
-  getBanner()
-})
+onMounted(()=>getBanner())
   return {
     bannerList
   }

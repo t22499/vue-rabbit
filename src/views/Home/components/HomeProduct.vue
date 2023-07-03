@@ -9,9 +9,7 @@ const getGoods = async()=>{
   const res = await getGoodsAPI()
   goodsProduct.value = res.result
 }
-onMounted(()=>{
-  getGoods()
-})
+onMounted(()=>getGoods())
 
 </script>
 

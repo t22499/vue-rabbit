@@ -8,9 +8,7 @@ const getHotList = async ()=>{
   const res = await getHotAPI()
   newList.value = res.result
 }
-onMounted(()=>{
-  getHotList()
-})
+onMounted(()=>getHotList())
 
 </script>
 
