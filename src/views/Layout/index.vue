@@ -17,6 +17,9 @@
   <LayoutFixed></LayoutFixed>
   <LayoutNav></LayoutNav>
   <LayoutHerder></LayoutHerder>
+  <!-- 二级路由出口 -->
+  <!-- 添加key值，破坏复用机制 强制销毁重建 -->
+  <!-- <RouterView :key="$route.fullPath"></RouterView> -->
   <RouterView></RouterView>
   <LayoutFooter></LayoutFooter>
 </template>
