@@ -3,14 +3,22 @@ import { ref,watch } from "vue"
 import { useMouseInElement } from '@vueuse/core'
 
 // 图片列表
-const imageList = [
-  "https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png",
-  "https://yanxuan-item.nosdn.127.net/e801b9572f0b0c02a52952b01adab967.jpg",
-  "https://yanxuan-item.nosdn.127.net/b52c447ad472d51adbdde1a83f550ac2.jpg",
-  "https://yanxuan-item.nosdn.127.net/f93243224dc37674dfca5874fe089c60.jpg",
-  "https://yanxuan-item.nosdn.127.net/f881cfe7de9a576aaeea6ee0d1d24823.jpg"
-]
+defineProps({
+  imageList:{
+    type:Array,
+    default:() => []
+  }
+})
 
+// const imageList = [
+//   "https://yanxuan-item.nosdn.127.net/d917c92e663c5ed0bb577c7ded73e4ec.png",
+//   "https://yanxuan-item.nosdn.127.net/e801b9572f0b0c02a52952b01adab967.jpg",
+//   "https://yanxuan-item.nosdn.127.net/b52c447ad472d51adbdde1a83f550ac2.jpg",
+//   "https://yanxuan-item.nosdn.127.net/f93243224dc37674dfca5874fe089c60.jpg",
+//   "https://yanxuan-item.nosdn.127.net/f881cfe7de9a576aaeea6ee0d1d24823.jpg"
+// ]
+
+//小图切换大图显示
 const activeIndex = ref(0)
 const enterhandler = (i) =>{
   activeIndex.value = i 
@@ -28,10 +36,8 @@ const positionY = ref(0)
 
 watch([elementX, elementY, isOutside],()=>{
   if(isOutside.value){
-    console.log('退出')
     return
   }
-  console.log('成功监听')
   //有效范围内控制滑块距离
   //横向
   if(elementX.value > 100 && elementX.value < 300){
@@ -72,9 +78,9 @@ watch([elementX, elementY, isOutside],()=>{
       </li>
     </ul>
     <!-- 放大镜大图 -->
-    <div class="large" ref="imgID" :style="[
+    <div class="large" :style="[
       {
-        backgroundImage: `url(${imageList[i]})`,
+        backgroundImage: `url(${imageList[activeIndex]})`,
         backgroundPositionX: `${positionX}px`,
         backgroundPositionY: `${positionY}px`,
       },
