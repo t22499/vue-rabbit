@@ -37,7 +37,6 @@ const tabChange = async ()=>{
 //无限加载
 const disabled = ref(false)
 const load = async ()=>{
-  console.log('无限加载')
   reqData.value.page++
   const res = await getSubCategoryAPI(reqData.value)
   goodsList.value = [...goodsList.value,...res.result.items]
