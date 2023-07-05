@@ -19,8 +19,12 @@ const enterhandler = (i) =>{
 //放大镜功能
 const target = ref(null)
 const { elementX, elementY, isOutside } = useMouseInElement(target)
+//小图位置
 const left = ref(0)
 const top = ref(0)
+//大图位置
+const positionX = ref(0)
+const positionY = ref(0)
 
 watch([elementX, elementY, isOutside],()=>{
   if(isOutside.value){
@@ -44,12 +48,16 @@ watch([elementX, elementY, isOutside],()=>{
   if(elementX.value < 100 ){left.value = 0}
   if(elementX.value > 300 ){left.value = 200}
 
+  //大图
+  positionX.value = -left.value * 2
+  positionY.value = -top.value * 2
 })
+
+
 </script>
 
 
 <template>
-  {{elementX}},{{ elementY }},{{ isOutside }}
   <div class="goods-image">
     <!-- 左侧大图-->
     <div class="middle" ref="target">
@@ -64,13 +72,13 @@ watch([elementX, elementY, isOutside],()=>{
       </li>
     </ul>
     <!-- 放大镜大图 -->
-    <div class="large" :style="[
+    <div class="large" ref="imgID" :style="[
       {
-        backgroundImage: `url(${imageList[0]})`,
-        backgroundPositionX: `0px`,
-        backgroundPositionY: `0px`,
+        backgroundImage: `url(${imageList[i]})`,
+        backgroundPositionX: `${positionX}px`,
+        backgroundPositionY: `${positionY}px`,
       },
-    ]" v-show="false"></div>
+    ]" v-show="!isOutside" ></div>
   </div>
 </template>
 
