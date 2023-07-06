@@ -1,19 +1,20 @@
 <script setup>
 import { ref } from "vue";
-import {loginAPI} from '@/apis/user'
+// import {loginAPI} from '@/apis/user'
 import 'element-plus/es/components/message/style/css'
 import { ElMessage } from 'element-plus'
 import { useRouter } from "vue-router";
+import {useUserStore} from '@/stores/user'
 
 //表单校验
 //表单对象
 const form = ref({
-  account:'',
-  password:'',
+  account:'cdshi0088',
+  password:'123456',
   agree:true
 })
  
-const router = useRouter()
+
 //准备规则对象
 const rules = {
   account:[
@@ -35,7 +36,8 @@ const rules = {
     }
   ]
 }
-
+const UserStore = useUserStore()
+const router = useRouter()
 //form统一校验
 const formRef = ref(null) 
 const doLogin =()=>{
@@ -44,8 +46,9 @@ const doLogin =()=>{
     console.log(valid)
     if(valid){
       const {account,password} = form.value
-      const res = await loginAPI({account,password})
-      console.log(res)
+      // const res = await loginAPI({account,password})
+      await UserStore.getUserInfo({account,password})
+      // console.log(res)
       //提示用户
       ElMessage({type: 'success',message:'登录成功'})
       //跳转首页
