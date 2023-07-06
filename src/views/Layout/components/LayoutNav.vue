@@ -1,6 +1,14 @@
 <script setup>
 import {useUserStore} from '@/stores/user'
+import { useRouter } from 'vue-router';
 const userStore = useUserStore()
+
+//退出事件
+const router = useRouter()
+const confirm = ()=>{
+  userStore.clearUserInfo()
+  router.push('/login')
+}
 </script>
 
 <template>

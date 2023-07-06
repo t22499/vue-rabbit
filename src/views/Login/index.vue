@@ -47,9 +47,7 @@ const doLogin =()=>{
     if(valid){
       const {account,password} = form.value
       // const res = await loginAPI({account,password})
-      console.log('aa')
       await UserStore.getUserInfo({account,password})
-      console.log("bb")
       // console.log(res)
       //提示用户
       ElMessage({type: 'success',message:'登录成功'})
