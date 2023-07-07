@@ -24,12 +24,19 @@ export const useCartStore = defineStore('cart',()=>{
     cartList.value.splice(idx, 1)
   }
 
+  //单选功能
+  const singleCheck = (skuId,selected)=>{
+  const item = cartList.value.find((item) => skuId === item.skuId)
+    item.selected = selected
+  }
+
   //计算属性
   //总数 count之和
   const allCount = computed(()=>cartList.value.reduce((a,c)=>a+c.count,0))
   //总价 count * price之和
   const allPrice = computed(()=>cartList.value.reduce((a,c)=>a+c.count * c.price,0))
   return{
+    singleCheck,
     allCount,
     allPrice,
     cartList,
