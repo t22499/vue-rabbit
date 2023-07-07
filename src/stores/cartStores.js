@@ -40,6 +40,11 @@ export const useCartStore = defineStore('cart',()=>{
   //总价 count * price之和
   const allPrice = computed(()=>cartList.value.reduce((a,c)=>a+c.count * c.price,0))
 
+  //已选总数
+  const selectedCount = computed(()=>cartList.value.filter((item)=>item.selected).reduce((a,c)=>a+c.count,0))
+  const selectedPrice = computed(()=>cartList.value.filter((item)=>item.selected).reduce((a,c)=>a+c.count * c.price,0))
+  //已选总价
+
    //全选功能
    const isAll = computed(()=>cartList.value.every(item=>item.selected))
   return{
@@ -48,6 +53,8 @@ export const useCartStore = defineStore('cart',()=>{
     isAll,
     allCount,
     allPrice,
+    selectedCount,
+    selectedPrice,
     cartList,
     addCart,
     delCart
