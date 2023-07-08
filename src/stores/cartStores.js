@@ -1,20 +1,35 @@
 import { defineStore } from "pinia";
 import {computed, ref} from 'vue'
-
+import {useUserStore} from './user'
+import {insertCartAPI,findNewCartListAPI} from '@/apis/cart'
 
 export const useCartStore = defineStore('cart',()=>{
+  //获取用户的token
+  const userStore = useUserStore()
+  const isLogin = computed(()=>userStore.userInfo.token)
+
+
   //定义store
   const cartList = ref([])
-  const addCart = (goods)=>{
-    // console.log(goods)
-    // 添加购物车操作
-    const item = cartList.value.find((item)=>item.skuId === goods.skuId)
-    if (item){
-      //找到了就按照count数量添加
-      item.count += goods.count
+  const addCart = async (goods)=>{
+    const {skuId,count} = goods
+    //根据token判断是否登录
+    if(isLogin.value){
+      //登录时调用接口
+      await insertCartAPI({skuId,count})
+      const res = await findNewCartListAPI()
+      cartList.value  = res.result
     }else{
-      //没找到就直接添加
-      cartList.value.push(goods)
+      //本地购物车
+      // 添加购物车操作
+      const item = cartList.value.find((item)=>item.skuId === goods.skuId)
+      if (item){
+        //找到了就按照count数量添加
+        item.count += goods.count
+      }else{
+        //没找到就直接添加
+        cartList.value.push(goods)
+      }
     }
   }
 
@@ -48,6 +63,7 @@ export const useCartStore = defineStore('cart',()=>{
    //全选功能
    const isAll = computed(()=>cartList.value.every(item=>item.selected))
   return{
+    isLogin,
     singleCheck,
     allCheck,
     isAll,
