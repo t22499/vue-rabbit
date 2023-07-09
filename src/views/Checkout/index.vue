@@ -16,6 +16,24 @@ onMounted(()=>getCheckInfo())
 
 
 const showDiglog = ref(false)
+//切换地址
+const activeAddress = ref({})
+const switchAddress = (item)=>{
+  activeAddress.value = item
+}
+
+//确定按钮，切换地址
+const confirm = ()=>{
+  //将默认地址修改成选中的
+  curAddress.value = activeAddress.value
+  showDiglog.value = false
+  activeAddress.value = {}
+}
+//取消按钮
+const cancel = ()=>{
+  showDiglog.value = false
+  activeAddress.value = {}
+}
 </script>
 
 <template>
@@ -118,7 +136,8 @@ const showDiglog = ref(false)
   <!-- 切换地址 -->
   <el-dialog v-model="showDiglog" title="切换收货地址" width="30%" center>
   <div class="addressWrapper">
-    <div class="text item" v-for="item in checkInfo.userAddresses"  :key="item.id">
+    <div class="text item" :class="{active:activeAddress.id === item.id}" @click="switchAddress(item)"
+     v-for="item in checkInfo.userAddresses"  :key="item.id">
       <ul>
       <li><span>收<i />货<i />人：</span>{{ item.receiver }} </li>
       <li><span>联系方式：</span>{{ item.contact }}</li>
@@ -128,8 +147,8 @@ const showDiglog = ref(false)
   </div>
   <template #footer>
     <span class="dialog-footer">
-      <el-button>取消</el-button>
-      <el-button type="primary">确定</el-button>
+      <el-button @click="cancel">取消</el-button>
+      <el-button type="primary" @click="confirm">确定</el-button>
     </span>
   </template>
 </el-dialog>
